@@ -1,0 +1,9 @@
+# Track Unity assets with Git LFS
+*.prefab filter=lfs diff=lfs merge=lfs
+*.unitypackage filter=lfs diff=lfs merge=lfs
+*.asset filter=lfs diff=lfs merge=lfs
+# Add other large file types as needed, following Git LFS documentation: https://git-lfs.github.com/supported-types/
+
+# Exclude unnecessary files (optional)
+# *.meta filter=lfs exclude=yes
+# *.log filter=lfs exclude=yes
