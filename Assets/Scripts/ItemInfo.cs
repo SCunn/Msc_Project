@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectSystem : MonoBehaviour
+public class ItemInfo : MonoBehaviour
 {
-    public bool isActive;
-
+    public GameObject gameObject;
 }

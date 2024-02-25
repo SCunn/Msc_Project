@@ -24,6 +24,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+
 /// <summary>
 /// Manages UI of anchor sample.
 /// </summary>
@@ -38,6 +39,11 @@ public class AnchorUIManager : MonoBehaviour
     /// <summary>
     /// Anchor Mode switches between create and select
     /// </summary>
+    /// 
+    /////////////////////////////////// Added for Saving Prefabs to Spatial Anchors ///////////////////////
+    private Anchor _anchor;
+    private GameObject _selectedPrefab;
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     public enum AnchorMode
     {
         Create,
@@ -61,9 +67,10 @@ public class AnchorUIManager : MonoBehaviour
     private LineRenderer _lineRenderer;
 
     private Anchor _hoveredAnchor;
-
-    private Anchor _selectedAnchor;
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // private Anchor _selectedAnchor;
+    public Anchor _selectedAnchor;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private AnchorMode _mode = AnchorMode.Select;
 
     [SerializeField, FormerlySerializedAs("buttonList_")]
@@ -92,6 +99,13 @@ public class AnchorUIManager : MonoBehaviour
 
     #region Monobehaviour Methods
 
+    /////////////////////////////////// Added for Switching Between objects ///////////////////////
+    [SerializeField] private Transform selectablePrefabsTransform;
+    private int selectedPrefabIndex;
+    [SerializeField] private List<GameObject> selectablePrefabs;
+    // private int selectedPrefabIndex = 0;
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     private void Awake()
     {
         if (Instance == null)
@@ -105,7 +119,16 @@ public class AnchorUIManager : MonoBehaviour
     }
 
     private void Start()
-    {
+    {   
+        /////////////////////////////////// Added for Saving Prefabs to Spatial Anchors ///////////////////////
+        // _anchor = GetComponent<Anchor>();
+        // if (_anchor == null)
+        // {
+        //     Debug.LogError("Anchor script not found!");
+        //     return;
+        // }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+
         _raycastOrigin = _trackedDevice;
 
         // Start in select mode
@@ -118,6 +141,13 @@ public class AnchorUIManager : MonoBehaviour
 
         _lineRenderer.startWidth = 0.005f;
         _lineRenderer.endWidth = 0.005f;
+    /////////////////////////////////// Added for Switching Between objects ///////////////////////
+        selectablePrefabs = new List<GameObject>();
+        foreach (Transform child in selectablePrefabsTransform)
+        {
+            selectablePrefabs.Add(child.gameObject);
+        }
+    //////////////////////////////////////////////////////////
     }
 
     private void Update()
@@ -235,6 +265,16 @@ public class AnchorUIManager : MonoBehaviour
         {
             _selectedButton.OnSubmit(null);
         }
+    /////////////////////////////////// Added for Switching Between objects ///////////////////////
+        if (OVRInput.GetDown(OVRInput.RawButton.X))
+        {
+            SelectPreviousPrefab();
+        }
+        else if (OVRInput.GetDown(OVRInput.RawButton.Y))
+        {
+            SelectNextPrefab();
+        }
+    //////////////////////////////////////////////////////////
     }
 
     private void NavigateToIndexInMenu(bool moveNext)
@@ -364,4 +404,92 @@ public class AnchorUIManager : MonoBehaviour
     }
 
     #endregion // Private Methods
+
+    /////////////////////////////////// Added for Switching Between objects ///////////////////////
+    
+    // Selects the previous prefab in the list
+    private void SelectPreviousPrefab()
+    {
+        selectedPrefabIndex--;
+        if (selectedPrefabIndex < 0)
+        {
+            selectedPrefabIndex = selectablePrefabs.Count - 1;
+        }
+        UpdateSelectedPrefab();
+    }
+    // Selects the next prefab in the list
+    private void SelectNextPrefab()
+    {
+        selectedPrefabIndex++;
+        if (selectedPrefabIndex >= selectablePrefabs.Count)
+        {
+            selectedPrefabIndex = 0;
+        }
+        UpdateSelectedPrefab();
+    }
+    // Updates the selected prefab to the one at the current index
+    private void UpdateSelectedPrefab()
+    {
+        // Highlight the selected prefab visually
+        for (int i = 0; i < selectablePrefabs.Count; i++) // Loop through all prefabs
+        {
+            if (i == selectedPrefabIndex)   // If the current index is the selected index
+            {
+                selectablePrefabs[i].SetActive(true);       // Activate the prefab
+            }
+            else
+            {
+                selectablePrefabs[i].SetActive(false);    // else Deactivate the prefab
+            }
+        }
+
+        // Update primary press delegate for spawning
+        _primaryPressDelegate = () => SpawnSelectedPrefab();
+    }
+    // Spawns the selected prefab at the anchor placement transform
+    private void SpawnSelectedPrefab()
+    {
+        GameObject prefab = selectablePrefabs[selectedPrefabIndex];     // Get the selected prefab
+        Instantiate(prefab, _anchorPlacementTransform.position, _anchorPlacementTransform.rotation); // Instantiate the prefab at the anchor placement transform
+    }
+
+    /////////////////////////////////////////////////// Save Prefab to spatial anchor Logic ////////////////////////////////////////////////
+    // public void OnSelectPrefab(GameObject prefab)
+    // {
+    //     _selectedPrefab = prefab;   // Store selected prefab for later use
+    //     selectedPrefabIndex = selectablePrefabs.IndexOf(prefab);    // Get the index of the selected prefab
+    //     SpawnPrefab(prefab); // Spawn the selected prefab
+    //     /////////////////////////////////// Added for Saving Prefabs to Spatial Anchors ///////////////////////
+        
+    //     ///////////////////////////////////////////////////////////////////////////////////////////////
+    // }
+
+    // // Prefab spawner
+    // private void SpawnPrefab(GameObject prefab)
+    // {
+    //     Instantiate(prefab, _anchorPlacementTransform.position, _anchorPlacementTransform.rotation); // Instantiate the prefab at the anchor placement transform
+    //     // SavePrefabToAnchor(prefab, _anchor._spatialAnchor);
+    // }
+
+    // Anchor saving logic
+    // public void OnSaveLocalButtonPressed()
+    // {   
+    //     if (_selectedPrefab != null && _anchor != null)
+    //     {
+    //         // Save prefab association after saving anchor data
+    //         // PrefabDataSaver.Instance.SavePrefabToAnchor(_selectedPrefab, _anchor._spatialAnchor);
+    //     }
+    // }
+
+    // private void SavePrefabToAnchor(GameObject prefab, OVRSpatialAnchor anchor)
+    // {
+    //     if (prefab == null || anchor == null) return;
+        
+    //     // Store prefab information in the anchor's UserData
+    //     string prefabData = JsonUtility.ToJson(prefab.name);
+    //     anchor.UserData = prefabData;
+    // }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 }

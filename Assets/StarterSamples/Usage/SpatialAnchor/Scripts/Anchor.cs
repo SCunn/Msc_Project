@@ -79,12 +79,13 @@ public class Anchor : MonoBehaviour
 
     private Button _selectedButton;
 
-    private OVRSpatialAnchor _spatialAnchor;
-
+    // private OVRSpatialAnchor _spatialAnchor;
+    public OVRSpatialAnchor _spatialAnchor;
     private GameObject _icon;
 
     #region Monobehaviour Methods
 
+    // public void Awake()
     private void Awake()
     {
         _anchorMenu.SetActive(false);

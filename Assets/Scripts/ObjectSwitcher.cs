@@ -1,45 +1,65 @@
-
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectSwitcher : MonoBehaviour
 {
+
+    public OVRInput.Button button1;
+    // public OVRInput.Button button2;
+    public OVRInput.Controller controller;
     
-    public int currentObject = 0;
+    [Header("References")]
+    [SerializeField] private Transform[] items;
 
+    [Header("Keys")]
+    [SerializeField] private KeyCode[] keys;
+
+    [Header("Settings")]
+    [SerializeField] private float switchTime;
+
+    private int selectedItem;
+    private float timeSinceLastSwitch;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        SelectObject();
+       SetItems();
+       Select(selectedItem);
+
+       timeSinceLastSwitch = 0f;
     }
 
+
+    private void SetItems()
+    {
+        items = new Transform[transform.childCount];
+
+        for (int i = 0; i < transform.childCount; i++){
+            items[i] = transform.GetChild(i);
+        }
+        if (keys == null) keys = new KeyCode[items.Length];
+    }
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if(currentObject <= 0)
-                currentObject = 0;
-            else
-                currentObject++;    
+        int previousSelectedItem = selectedItem;
+
+        for (int i = 0; i < keys.Length; i++){
+        // if (OVRInput.GetDown(button1))
+            if (Input.GetKeyDown(keys[i]) && timeSinceLastSwitch >= switchTime)
+                selectedItem = i;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if(currentObject <=0 )
-                currentObject = transform.childCount - 1;
-            else
-                currentObject--;
+        if (previousSelectedItem != selectedItem) Select(selectedItem);
+
+        timeSinceLastSwitch += Time.deltaTime;
+       
+    }
+    private void Select(int itemIndex)
+    {
+        for (int i = 0; i < items.Length; i++){
+            items[i].gameObject.SetActive(i == itemIndex);
         }
+        timeSinceLastSwitch = 0f;
     }
 
-    void SelectObject(){
-        int i = 0;
-        foreach (Transform obj in transform)
-        {
-           if (i == currentObject)
-                obj.gameObject.SetActive(true);
-              else
-                obj.gameObject.SetActive(false);
-              i++; 
-        }
-    }
 }
