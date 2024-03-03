@@ -70,6 +70,7 @@ public class AnchorUIManager : MonoBehaviour
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // private Anchor _selectedAnchor;
     public Anchor _selectedAnchor;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private AnchorMode _mode = AnchorMode.Select;
 
@@ -127,6 +128,7 @@ public class AnchorUIManager : MonoBehaviour
         //     Debug.LogError("Anchor script not found!");
         //     return;
         // }
+
         ///////////////////////////////////////////////////////////////////////////////////////////////
 
         _raycastOrigin = _trackedDevice;
@@ -453,7 +455,7 @@ public class AnchorUIManager : MonoBehaviour
         Instantiate(prefab, _anchorPlacementTransform.position, _anchorPlacementTransform.rotation); // Instantiate the prefab at the anchor placement transform
     }
 
-    /////////////////////////////////////////////////// Save Prefab to spatial anchor Logic ////////////////////////////////////////////////
+    /////////////////////////////////////////////////// Added for Saving Prefabs to Spatial Anchors ////////////////////////////////////////////////
     // public void OnSelectPrefab(GameObject prefab)
     // {
     //     _selectedPrefab = prefab;   // Store selected prefab for later use
@@ -471,13 +473,13 @@ public class AnchorUIManager : MonoBehaviour
     //     // SavePrefabToAnchor(prefab, _anchor._spatialAnchor);
     // }
 
-    // Anchor saving logic
+    // //Anchor saving logic
     // public void OnSaveLocalButtonPressed()
     // {   
     //     if (_selectedPrefab != null && _anchor != null)
     //     {
     //         // Save prefab association after saving anchor data
-    //         // PrefabDataSaver.Instance.SavePrefabToAnchor(_selectedPrefab, _anchor._spatialAnchor);
+    //         PrefabDataSaver.Instance.SavePrefabToAnchor(_selectedPrefab, _anchor._spatialAnchor);
     //     }
     // }
 

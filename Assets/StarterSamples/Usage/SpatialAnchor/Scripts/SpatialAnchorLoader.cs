@@ -96,6 +96,27 @@ public class SpatialAnchorLoader : MonoBehaviour
         }
     });
 
+    // private void OnLocalized(OVRSpatialAnchor.UnboundAnchor unboundAnchor, bool success)
+    // {
+    //     if (!success)
+    //     {
+    //         Log($"{unboundAnchor} Localization failed!");
+    //         return;
+    //     }
+
+    //     var pose = unboundAnchor.Pose;
+    //     var spatialAnchor = Instantiate(_anchorPrefab, pose.position, pose.rotation);
+    //     unboundAnchor.BindTo(spatialAnchor);
+
+    //     if (spatialAnchor.TryGetComponent<Anchor>(out var anchor))
+    //     {
+    //         // We just loaded it, so we know it exists in persistent storage.
+    //         anchor.ShowSaveIcon = true;
+    //     }
+    // }
+
+    //////////////////////////  Added to save Prefabs to Anchors //////////////////////////
+
     private void OnLocalized(OVRSpatialAnchor.UnboundAnchor unboundAnchor, bool success)
     {
         if (!success)
@@ -104,16 +125,37 @@ public class SpatialAnchorLoader : MonoBehaviour
             return;
         }
 
+        
         var pose = unboundAnchor.Pose;
         var spatialAnchor = Instantiate(_anchorPrefab, pose.position, pose.rotation);
-        unboundAnchor.BindTo(spatialAnchor);
 
+        
         if (spatialAnchor.TryGetComponent<Anchor>(out var anchor))
         {
             // We just loaded it, so we know it exists in persistent storage.
             anchor.ShowSaveIcon = true;
+
+            if (PrefabDataSaver.Instance != null)
+            {
+
+                // Load and spawn the prefab associated with the anchor
+                string prefabName = PrefabDataSaver.Instance.LoadPrefabNameFromAnchor(spatialAnchor);
+                if (!string.IsNullOrEmpty(prefabName))
+                {
+                    GameObject prefab = Resources.Load<GameObject>(prefabName);
+                    if (prefab != null)
+                    {
+                        Instantiate(prefab, spatialAnchor.transform.position, spatialAnchor.transform.rotation, spatialAnchor.transform);
+                    }
+                    else
+                    {
+                        Debug.LogError($"Failed to load prefab named '{prefabName}' from Resources");
+                    }
+                }
+            }
         }
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private static void Log(string message) => Debug.Log($"[SpatialAnchorsUnity]: {message}");
 }
