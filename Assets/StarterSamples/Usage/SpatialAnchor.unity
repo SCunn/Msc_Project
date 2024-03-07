@@ -1942,6 +1942,7 @@ MonoBehaviour:
   _selectModeButton: {fileID: 483283384}
   _trackedDevice: {fileID: 528605028}
   _lineRenderer: {fileID: 900954848}
+  _selectedAnchor: {fileID: 0}
   _buttonList:
   - {fileID: 379724783}
   - {fileID: 1115110214}
