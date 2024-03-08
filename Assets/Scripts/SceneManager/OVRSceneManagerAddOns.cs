@@ -41,6 +41,11 @@ namespace MetaAdvancedFeatures.SceneUnderstanding
                 {
                     obj.AddComponent<BoxCollider>();
                 }
+                // remove colliders from objects with the "Ignore" tag
+                if (obj.gameObject.CompareTag("Ignore"))
+                {
+                    Destroy(obj.GetComponent<Collider>());
+                }
             }
 
             // Fix the orientation of desks by flipping their scale on the z-axis
