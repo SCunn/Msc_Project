@@ -144,9 +144,11 @@ public class AnchorUIManager : MonoBehaviour
         _lineRenderer.startWidth = 0.005f;
         _lineRenderer.endWidth = 0.005f;
     /////////////////////////////////// Added for Switching Between objects ///////////////////////
-        selectablePrefabs = new List<GameObject>();
+        // Get all the prefabs from the selectable prefabs transform
+        selectablePrefabs = new List<GameObject>(); 
+        // Loop through all the children of the selectable prefabs transform
         foreach (Transform child in selectablePrefabsTransform)
-        {
+        {   // Add the child to the list of selectable prefabs
             selectablePrefabs.Add(child.gameObject);
         }
     //////////////////////////////////////////////////////////
@@ -268,6 +270,7 @@ public class AnchorUIManager : MonoBehaviour
             _selectedButton.OnSubmit(null);
         }
     /////////////////////////////////// Added for Switching Between objects ///////////////////////
+        // Switch between prefabs using the X and Y buttons
         if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
             SelectPreviousPrefab();
@@ -412,22 +415,22 @@ public class AnchorUIManager : MonoBehaviour
     // Selects the previous prefab in the list
     private void SelectPreviousPrefab()
     {
-        selectedPrefabIndex--;
-        if (selectedPrefabIndex < 0)
+        selectedPrefabIndex--;  // Decrement the selected prefab index
+        if (selectedPrefabIndex < 0)    // If the selected prefab index is less than 0
         {
-            selectedPrefabIndex = selectablePrefabs.Count - 1;
+            selectedPrefabIndex = selectablePrefabs.Count - 1;  // Set the selected prefab index to the last index
         }
-        UpdateSelectedPrefab();
+        UpdateSelectedPrefab(); // Update the selected prefab
     }
     // Selects the next prefab in the list
     private void SelectNextPrefab()
     {
-        selectedPrefabIndex++;
-        if (selectedPrefabIndex >= selectablePrefabs.Count)
+        selectedPrefabIndex++;  // Increment the selected prefab index
+        if (selectedPrefabIndex >= selectablePrefabs.Count)  // If the selected prefab index is greater than or equal to the number of prefabs
         {
-            selectedPrefabIndex = 0;
+            selectedPrefabIndex = 0;        // Set the selected prefab index to 0
         }
-        UpdateSelectedPrefab();
+        UpdateSelectedPrefab();         // Update the selected prefab
     }
     // Updates the selected prefab to the one at the current index
     private void UpdateSelectedPrefab()
