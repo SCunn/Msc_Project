@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class AnchorPlacement : MonoBehaviour
@@ -35,6 +36,32 @@ public class AnchorPlacement : MonoBehaviour
         // Cycle to the next prefab in the array
         // currentPrefabIndex = (currentPrefabIndex + 1) % anchorPrefabs.Length;
     }
+
+    // // Delete selected anchor
+    // public void DeleteSpatialAnchor()
+    // {
+    //     // Get the anchor to delete
+    //     GameObject anchor = GameObject.FindWithTag("SpatialAnchor");
+
+    //     // If an anchor was found, destroy it
+    //     if (anchor != null)
+    //     {
+    //         Destroy(anchor);
+    //     }
+    // }
+
+    // // Select created spatial anchor
+    // public void SelectSpatialAnchor()
+    // {
+    //     // Get the anchor to select
+    //     GameObject anchor = GameObject.FindWithTag("SpatialAnchor");
+
+    //     // If an anchor was found, select it
+    //     if (anchor != null)
+    //     {
+    //         anchor.GetComponent<OVRSpatialAnchor>().SetSelected(true);
+    //     }
+    // }
 }
         
 

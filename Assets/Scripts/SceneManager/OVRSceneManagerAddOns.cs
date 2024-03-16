@@ -57,6 +57,30 @@ namespace MetaAdvancedFeatures.SceneUnderstanding
             {
                 transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z * -1);
             }
+
+            // Function to add stencil buffer to windows and doors
+            // AddStencilBufferToWindowsAndDoors();
+
+
         }
+
+        // This method adds a stencil buffer to all objects with the "Window" or "Door" tag
+        // private void AddStencilBufferToWindowsAndDoors()
+        // {
+        //     // Find all objects with the "Window" or "Door" tag
+        //     GameObject[] allWindowsAndDoors = GameObject.FindGameObjectsWithTag("Window")
+        //         .Concat(GameObject.FindGameObjectsWithTag("Door"))
+        //         .ToArray();
+
+        //     // Add a Stencil Buffer component to all objects with the "Window" or "Door" tag
+        //     foreach (var obj in allWindowsAndDoors)
+        //     {
+        //         if (obj.GetComponent<StencilBuffer>() == null)
+        //         {
+        //             obj.AddComponent<StencilBuffer>();
+        //         }
+        //     }
+        // }
+
     }
 }
