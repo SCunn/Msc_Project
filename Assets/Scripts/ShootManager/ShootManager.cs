@@ -1,6 +1,7 @@
 // Original code sourced from https://youtu.be/TjBIEOFiqoI?si=sFa0mC5nDWqlo0DR&t=416
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Interaction;
 using UnityEngine;
 
 public class ShootManager : MonoBehaviour
@@ -13,15 +14,24 @@ public class ShootManager : MonoBehaviour
     // GameObject used as a bullet to Instantiate
     [SerializeField] GameObject bulletPrefab;
     public float speed = 50f;
-    // // Shot Spread
-    // public float spread;
-    // // Bullets per shot
-    // public int bulletsPerShot;
+    // Shot Spread
+    public float spread;
+    // Bullets per shot
+    public int bulletsPerShot;
 
     [Header("Partical Effect")]
+    // // The Rigidbody of the bullet
+    // private Rigidbody rb = null;
+    // // Bullet lifespan in seconds
+    // private float flashLifeSpan = 5f;
+
     public GameObject muzzleFlash;
 
     public AudioClip audioClip;
+
+
+    
+    private bool isGrabbed;
 
     //[Header("Aiming Helper")]
     //public Transform gunTip;
@@ -32,7 +42,8 @@ public class ShootManager : MonoBehaviour
     public enum ShootMode
     {
         Automatic,
-        Single
+        Single,
+        Shotgun
     }
 
     [Header("ShootMode")]
@@ -48,12 +59,23 @@ public class ShootManager : MonoBehaviour
     //// Referene to the Gesture Detector Component
     //private GestureDetector2 gestureDetector;
 
-    // Start is called before the first frame update
-    //private void Start()
-    //{
-    //    // Get the Gesture Detector Component
-    //    gestureDetector = GetComponent<GestureDetector2>();
-    //}
+    // // Start is called before the first frame update
+    // private void Start()
+    // {
+    //     rb = GetComponent<Rigidbody>();
+    //     Destroy(gameObject, flashLifeSpan);
+    // }
+
+    public void Grabbed() 
+    {
+        isGrabbed = true;
+    }    
+
+    public void Released() 
+    {
+        isGrabbed = false;
+    }
+
 
     // Method to add in the Event of the gesture you want to make shoot
     public void OnShoot() 
@@ -87,35 +109,48 @@ public class ShootManager : MonoBehaviour
                 }
                 break;
 
-
+            case ShootMode.Shotgun:
+                if (isGrabbed)
+                {
+                    Debug.Log("Shooting in Shotgun Mode");
+                    for (int i = 0; i < bulletsPerShot; i++) 
+                    {
+                        Shoot();
+                    }
+                }
+                break;
         }
     }
 
+
+
     private void Shoot() 
     {
-        // // Spread
-        // float x = Random.Range(-spread, spread);
-        // float y = Random.Range(-spread, spread);
+        // Spread
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
 
-        // // Calcuelate Direction with Spread
-        // Vector3 direction = hand.forward + new Vector3(x, y, 0);
+        // Calcuelate Direction with Spread
+        Vector3 direction = hand.forward + new Vector3(x, y, 0);
 
-        // // Instantiate the bullet
+        // Instantiate the bullet
+        GameObject bullet = Instantiate(bulletPrefab, hand.position, Quaternion.identity);
+        bullet.transform.localRotation = hand.rotation;
+        bullet.GetComponent<Rigidbody>().AddForce(direction * speed * 2f); //Set the speed of the projectile by applying force to the rigidbody
+        Instantiate(muzzleFlash, hand.position, hand.rotation); // Instantiate the muzzle flash particle effect
+        AudioSource.PlayClipAtPoint(audioClip, transform.position);
+        //hasFired = false; // Reset hasFired to false after shooting
+  
+
         // GameObject bullet = Instantiate(bulletPrefab, hand.position, Quaternion.identity);
         // bullet.transform.localRotation = hand.rotation;
-        // bullet.GetComponent<Rigidbody>().AddForce(direction * speed * 2f); //Set the speed of the projectile by applying force to the rigidbody
+        // bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * speed * 2f); //Set the speed of the projectile by applying force to the rigidbody
         // Instantiate(muzzleFlash, hand.position, hand.rotation); // Instantiate the muzzle flash particle effect
         // AudioSource.PlayClipAtPoint(audioClip, transform.position);
         // //hasFired = false; // Reset hasFired to false after shooting
 
-        GameObject bullet = Instantiate(bulletPrefab, hand.position, Quaternion.identity);
-        bullet.transform.localRotation = hand.rotation;
-        bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * speed * 2f); //Set the speed of the projectile by applying force to the rigidbody
-        Instantiate(muzzleFlash, hand.position, hand.rotation); // Instantiate the muzzle flash particle effect
-        AudioSource.PlayClipAtPoint(audioClip, transform.position);
-        //hasFired = false; // Reset hasFired to false after shooting
-
     }
+
 
 
     public void StopShoot()
