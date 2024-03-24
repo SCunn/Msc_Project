@@ -156,6 +156,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _UpTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -191,11 +195,13 @@ Material:
     - _DecalMeshDepthBias: 0
     - _DecalMeshViewBias: 0
     - _DetailNormalMapScale: 1
+    - _DistanceMultipler: 1
     - _DrawOrder: 0
     - _DstBlend: 0
     - _EnableExternalAlpha: 0
     - _EnableHeightBlend: 0
     - _EnableInstancedPerPixelNormal: 1
+    - _Exposure: 1
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -214,6 +220,8 @@ Material:
     - _Occlusion: 7.5
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Rotation: 0
+    - _Shininess: 0.078125
     - _Smoothness0: 0.5
     - _Smoothness1: 0.5
     - _Smoothness2: 0.5
@@ -226,6 +234,7 @@ Material:
     - _Tiling: 1
     - _TopExponent: 0.5
     - _UVSec: 0
+    - _WireThickness: 135
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
@@ -236,7 +245,10 @@ Material:
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _HorizonColor: {r: 1, g: 1, b: 1, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _TopColor: {r: 1, g: 1, b: 1, a: 0}
     - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
+    - _WireframeColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

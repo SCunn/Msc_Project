@@ -21,6 +21,8 @@
       Pass Keep
     }
 
+    Cull Back
+
     CGPROGRAM
     #pragma surface surf Standard noshadow
     #pragma target 3.0
@@ -45,6 +47,8 @@
     }
 
     ENDCG
+
+    
   }
 
   Fallback "VertexLit"
