@@ -21,8 +21,9 @@
       Pass Keep
     }
 
-    Cull Back
-
+    
+    Cull Back     // Cull back faces, removes pass through
+    
     CGPROGRAM
     #pragma surface surf Standard noshadow
     #pragma target 3.0
@@ -37,11 +38,11 @@
       float2 uv_MainTex;
       float2 uv_NormalTex;
     };
-
-    void surf (Input IN, inout SurfaceOutputStandard o)
+    // Normal map
+    void surf (Input IN, inout SurfaceOutputStandard o)   // Surface shader function
     {
-      fixed4 c = tex2D(_MainTex, IN.uv_MainTex * _Tiling) * _Color;
-      o.Albedo = c.rgb;
+      fixed4 c = tex2D(_MainTex, IN.uv_MainTex * _Tiling) * _Color; // Sample the texture
+      o.Albedo = c.rgb; 
       o.Alpha = c.a;
       o.Normal = UnpackNormal (tex2D(_NormalTex, IN.uv_MainTex * _Tiling));
     }
