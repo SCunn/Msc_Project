@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace MetaAdvancedFeatures.SceneUnderstanding
 {
@@ -41,11 +42,33 @@ namespace MetaAdvancedFeatures.SceneUnderstanding
                 {
                     obj.AddComponent<BoxCollider>();
                 }
-                // remove colliders from objects with the "Ignore" tag
-                if (obj.gameObject.CompareTag("Ignore"))
-                {
-                    Destroy(obj.GetComponent<Collider>());
-                }
+                // // remove colliders from objects with the "Ignore" tag
+                // if (obj.gameObject.CompareTag("Ignore"))
+                // {
+                //     Destroy(obj.GetComponent<Collider>());
+                //     // // Add a cube collider to the object, positioned beind and bleow the floor level of the object
+                //     // BoxCollider boxCollider = obj.gameObject.AddComponent<BoxCollider>();	
+                //     // boxCollider.size = new Vector3(1.0f, 0.3f, 0.2f);
+                //     // boxCollider.center = new Vector3(0.0f, -1.95f, -0.1f);
+                //     // // Add a Transform component to the object, positioned in front of the object
+                //     // Transform transform = obj.gameObject.AddComponent<Transform>();
+                //     // transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+                //     // transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+                //     // transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                //     // // Add a Transform component to the object, positioned behind the object
+                //     // Transform transform2 = obj.gameObject.AddComponent<Transform>();
+                //     // transform2.position = new Vector3(0.0f, 0.0f, 0.0f);
+                //     // transform2.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+                //     // transform2.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    
+
+
+                //     // OffMeshLink offMeshLink = obj.AddComponent<OffMeshLink>();
+                //     // offMeshLink.startTransform = startPoint.transform;
+                //     // offMeshLink.endTransform = endPoint.transform;
+                //     // offMeshLink.costOverride = 2.0f;
+                //     // offMeshLink.activated = true;
+                // }
             }
 
             // Fix the orientation of desks by flipping their scale on the z-axis
