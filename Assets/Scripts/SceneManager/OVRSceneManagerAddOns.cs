@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.AI;
+
 
 namespace MetaAdvancedFeatures.SceneUnderstanding
 {
     public class OVRSceneManagerAddons : MonoBehaviour
     {
+        [SerializeField]
+        private NavMeshSurface navSurface;
         protected OVRSceneManager SceneManager { get; private set; }           // Reference to the OVRSceneManager component
 
         private void Awake()
@@ -68,6 +71,11 @@ namespace MetaAdvancedFeatures.SceneUnderstanding
                 //     // offMeshLink.endTransform = endPoint.transform;
                 //     // offMeshLink.costOverride = 2.0f;
                 //     // offMeshLink.activated = true;
+                // }
+
+                // if (obj.gameObject.CompareTag("Floor"))
+                // {
+                //     navSurface.BuildNavMesh();
                 // }
             }
 

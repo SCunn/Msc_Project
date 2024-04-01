@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;        
 using UnityEngine.AI;
+// using Oculus.VR;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform; // find the player gameObject and set it to the player variable
+        player = GameObject.FindGameObjectWithTag("MainCamera").transform; // find the player gameObject and set it to the player variable
         agent = GetComponent<NavMeshAgent>(); // get the NavMeshAgent component from the enemy gameObject
     }
 
@@ -29,6 +30,7 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         transform.LookAt(player); // make the enemy look at the player
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); // make the enemy rotate only on the y axis
         agent.SetDestination(player.position); // set the destination of the enemy to the player's position
 
         // if the distance between the enemy and the player is less than or equal to the enemyDistance.
