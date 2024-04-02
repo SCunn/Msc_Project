@@ -1,5 +1,5 @@
 // Purpose: Controls the movement of the enemy
-// original script from Big Bird Games, https://www.youtube.com/watch?v=SXyLO3q8DD0&ab_channel=BigBirdGames
+// original script from Big Bird Games, https://www.youtube.com/watch?v=SXyLO3q8DD0&ab_channel=BigBirdGames and The Game Dev Cave, https://www.youtube.com/watch?v=DnIBoUBezeU
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;        
