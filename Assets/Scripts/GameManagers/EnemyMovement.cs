@@ -9,12 +9,30 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     //// variables
-
+    // Original code
     private Transform player; // reference to the player, this allows for the enemy to follow the player based on the player's transfom position
+
+    // GameObject player; // reference to the player, this allows for the enemy to follow the player based on the player's transfom position
 
     private NavMeshAgent agent; // reference to the nav mesh agent, this allows for the enemy to move around the scene
 
-    public float enemyDistance = 0.7f; // Distance enemy will have to be from player to play animation
+    // public float enemyDistance = 0.7f; // Distance enemy will have to be from player to play animation
+
+    [SerializeField] LayerMask groundLayer, playerLayer; // LayerMask to determine what is ground and what is player
+
+    Animator animator; // reference to the animator, this allows for the enemy to play animations
+
+    BoxCollider boxCollider; // reference to the box collider placed on enemy attack area
+
+    // Patrolling
+    Vector3 destPoint; // destination point for the enemy to move to
+    bool walkpointSet;
+    [SerializeField] float range;
+
+    // state change
+    [SerializeField] float sightRange, attackRange; // range for the enemy to see the player and attack the player
+    bool playerInSight, playerInAttackRange; // boolean to check if the player is in the sight range and attack range
+
 
     // Spawner
     //public delegate void EnemyKilled();      // delegate is a type that represents references to methods with a particular parameter list and return type
@@ -22,8 +40,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("MainCamera").transform; // find the player gameObject and set it to the player variable
         agent = GetComponent<NavMeshAgent>(); // get the NavMeshAgent component from the enemy gameObject
+        player = GameObject.FindGameObjectWithTag("MainCamera").transform; // find the player gameObject and set it to the player variable
+        animator = GetComponent<Animator>(); // get the Animator component
+        boxCollider = GetComponentInChildren<BoxCollider>(); // get the BoxCollider component
     }
 
     // Update is called once per frame
@@ -31,15 +51,82 @@ public class EnemyMovement : MonoBehaviour
     {
         transform.LookAt(player); // make the enemy look at the player
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); // make the enemy rotate only on the y axis
-        agent.SetDestination(player.position); // set the destination of the enemy to the player's position
 
-        // if the distance between the enemy and the player is less than or equal to the enemyDistance.
-        if (Vector3.Distance(transform.position, player.position) <= enemyDistance) 
+        // agent.SetDestination(player.position); // set the destination of the enemy to the player's position
+
+        // // if the distance between the enemy and the player is less than or equal to the enemyDistance.
+        // if (Vector3.Distance(transform.position, player.position) <= enemyDistance) 
+        // {
+        //     gameObject.GetComponent<NavMeshAgent>().velocity = Vector3.zero;    // set the velocity of the enemy to zero, so it stops moving
+            
+        //     gameObject.GetComponent<Animator>().Play("attack2");     // play the attack1 animation
+        // } 
+
+        playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer); // check if the player is in the sight range
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer); // check if the player is in the attack range
+
+        if (!playerInSight && !playerInAttackRange) Patrol();
+        if (playerInSight && !playerInAttackRange) Chase();
+        if (playerInSight && playerInAttackRange) Attack();
+
+        
+
+    }
+
+    void Chase()
+    {
+        agent.SetDestination(player.transform.position);
+    }
+
+    void Attack()
+    {
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("attack2"))
         {
-            gameObject.GetComponent<NavMeshAgent>().velocity = Vector3.zero;    // set the velocity of the enemy to zero, so it stops moving
-            // gameObject.GetComponent<Animator>().Play("attack");                 // play the attack animation
-        } 
+            animator.SetTrigger("Attack");
+            agent.SetDestination(transform.position);
+        }
+        
+    }
 
+    void Patrol()
+    {
+        if (!walkpointSet) SearchForDest();
+        if (walkpointSet) agent.SetDestination(destPoint);
+        if (Vector3.Distance(transform.position, destPoint) < 10) walkpointSet = false;
+    }
+
+    void SearchForDest()
+    {
+        float z = Random.Range(-range, range);
+        float x = Random.Range(-range, range);
+
+        destPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
+
+        if (Physics.Raycast(destPoint, Vector3.down, groundLayer))
+        {
+            walkpointSet = true;
+        }
+    }
+        
+    void EnableAttack()
+    {
+        boxCollider.enabled = true;
+    }
+
+    void DisableAttack()
+    {
+        boxCollider.enabled = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "MainCamera")
+        {
+            // Destroy(other.gameObject);
+            // Destroy(gameObject);
+            // OnEnemyKilled();
+            print("Hit!!!!!!!!!");
+        }
     }
 
 }
