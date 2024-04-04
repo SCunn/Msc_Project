@@ -2,7 +2,7 @@
   "dependencies": {
     "com.meta.xr.sdk.core": {
       "version": "62.0.0",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -133,7 +133,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.postprocessing": {
-      "version": "3.2.2",
+      "version": "3.4.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
