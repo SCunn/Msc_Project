@@ -22,6 +22,9 @@ public class EnemySpawner : MonoBehaviour
     float spawnRange = 10;
     public List<GameObject> currentSpawnedEnemies;
 
+    public float spawnTime = 1;
+    private float timer;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerStats : MonoBehaviour
 {
     [SerializeField] float maxHP = 100;
     public float HP;
@@ -33,18 +33,19 @@ public class PlayerHealth : MonoBehaviour
     public void Damage(float Damage)
     {
         HP -= Damage;
-        if(HP <= 0)
+        if(HP < 0)
         {
             HP = 0;
             // // Handle player death (e.g., disable movement, play death animation)
             // cameraRig.enabled = false; // Disable camera rig on death (optional)
-            // Debug.Log("Player is dead");
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Debug.Log("Player is dead");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        Debug.Log("Player HP: " + HP);
     }
 
-    public void Heal(float healAmount)
-    {
-        HP = Mathf.Clamp(HP + healAmount, 0f, maxHP);
-    }
+    // public void Heal(float healAmount)
+    // {
+    //     HP = Mathf.Clamp(HP + healAmount, 0f, maxHP);
+    // }
 }

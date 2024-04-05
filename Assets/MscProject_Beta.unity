@@ -8118,33 +8118,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: -1.01, z: 0}
---- !u!54 &538728726
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728756595}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
 --- !u!1 &549013749
 GameObject:
   m_ObjectHideFlags: 0
@@ -11377,7 +11350,6 @@ GameObject:
   - component: {fileID: 538728714}
   - component: {fileID: 538728718}
   - component: {fileID: 538728722}
-  - component: {fileID: 538728726}
   - component: {fileID: 728851082}
   m_Layer: 9
   m_Name: CenterEyeAnchor
@@ -23026,6 +22998,7 @@ MonoBehaviour:
     - {fileID: 9178210947635059768, guid: 8c1dc39d2a7c4a84d9d262982bed796e, type: 3}
     - {fileID: 9178210947635059768, guid: 8c1dc39d2a7c4a84d9d262982bed796e, type: 3}
   currentSpawnedEnemies: []
+  spawnTime: 1
 --- !u!4 &1403749665
 Transform:
   m_ObjectHideFlags: 0
@@ -35496,7 +35469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689460161906162832}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.87, y: 1.389, z: -0.32}
+  m_LocalPosition: {x: 0.87, y: 0.719, z: 0.254}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

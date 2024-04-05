@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     // // Player Info
-    PlayerHealth playerHP;
+    PlayerStats playerHP;
     // GameObject player;
 
     // Enemy Stats and Info
@@ -19,8 +19,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerHP = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PlayerHealth>(); // find the player gameObject and set it to the player variable, more fore dynamic dificulty scaling
-        
+        playerHP = GameObject.Find("CenterEyeAnchor").GetComponent<PlayerStats>(); // find the player gameObject and set it to the player variable, more fore dynamic dificulty scaling     
     }
 
     // Update is called once per frame
@@ -29,20 +28,20 @@ public class Enemy : MonoBehaviour
         
     }
 
-    // private void OnCollisionEnter(Collision collision)
-    // {
-    //     var playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-    //     if (playerHealth)
-    //     {
-    //         DamagePlayer();
-    //     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        var playerHealth = collision.gameObject.GetComponent<PlayerStats>();
+        if (playerHealth)
+        {
+            DamagePlayer();
+        }
 
-    // }
+    }
 
-    // void DamagePlayer()
-    // {
-    //     playerHP.Damage(damage);
-    // }
+    void DamagePlayer()
+    {
+        playerHP.Damage(damage);
+    }
 
     void KillEnemy()
     {
