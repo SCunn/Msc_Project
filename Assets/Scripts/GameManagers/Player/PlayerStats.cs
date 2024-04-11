@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] float maxHP = 100;
-    public float HP;
+    [SerializeField] int maxHP = 100;
+    public int HP;
     // public OVRCameraRig cameraRig; // Reference to the OVRCameraRig
     // public Image healthbar; // Reference to the health bar image
     
@@ -30,16 +30,17 @@ public class PlayerStats : MonoBehaviour
         return HP;
     }
 
-    public void Damage(float Damage)
+    public void Damage(int Damage)
     {
         HP -= Damage;
-        if(HP < 0)
+        if(HP <= 0)
         {
             HP = 0;
             // // Handle player death (e.g., disable movement, play death animation)
             // cameraRig.enabled = false; // Disable camera rig on death (optional)
-            Debug.Log("Player is dead");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            // Debug.Log("Player is dead");
+
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         Debug.Log("Player HP: " + HP);
     }

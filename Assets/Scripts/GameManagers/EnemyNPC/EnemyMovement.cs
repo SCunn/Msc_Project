@@ -24,6 +24,8 @@ public class EnemyMovement : MonoBehaviour
 
     BoxCollider boxCollider; // reference to the box collider placed on enemy attack area
 
+    private bool isDead = false; // boolean to check if the enemy is dead   
+
     // Patrolling
     Vector3 destPoint; // destination point for the enemy to move to
     bool walkpointSet;
@@ -55,7 +57,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(player); // make the enemy look at the player
+        // transform.LookAt(player); // make the enemy look at the player
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); // make the enemy rotate only on the y axis
 
         // agent.SetDestination(player.position); // set the destination of the enemy to the player's position
@@ -82,14 +84,20 @@ public class EnemyMovement : MonoBehaviour
     void Chase()
     {
         agent.SetDestination(player.transform.position);
+        // Debug.Log("Chasing Player");
     }
 
     void Attack()
     {
+
+        transform.LookAt(player); // make the enemy look at the player
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); // make the enemy rotate only on the y axis
+        
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("attack2"))
         {
             animator.SetTrigger("Attack");
             agent.SetDestination(transform.position);
+            // Debug.Log("Attacking Player");
         }
         
     }
@@ -99,6 +107,7 @@ public class EnemyMovement : MonoBehaviour
         if (!walkpointSet) SearchForDest();
         if (walkpointSet) agent.SetDestination(destPoint);
         if (Vector3.Distance(transform.position, destPoint) < 10) walkpointSet = false;
+        // Debug.Log("Patrolling");
     }
 
     void SearchForDest()

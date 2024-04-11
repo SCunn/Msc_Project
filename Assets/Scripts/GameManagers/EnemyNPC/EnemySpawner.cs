@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField][NonReorderable] WaveContent[] waves;
     int currentWave = 0;
-    float spawnRange = 10;
+    float spawnRange = 20;
     public List<GameObject> currentSpawnedEnemies;
 
     public float spawnTime = 1;
@@ -43,14 +43,16 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnWave()
     {
-        for (int i = 0; i < waves[currentWave].GetEnemySpawnList().Length; i++)
+        if (currentWave < waves.Length) // Add a check to ensure currentWave is within the bounds of the waves array
         {
-            GameObject newspawn = Instantiate(waves[currentWave].GetEnemySpawnList()[i],FindSpawnLoc(),Quaternion.identity);
-            currentSpawnedEnemies.Add(newspawn);
+            for (int i = 0; i < waves[currentWave].GetEnemySpawnList().Length; i++)
+            {
+                GameObject newspawn = Instantiate(waves[currentWave].GetEnemySpawnList()[i], FindSpawnLoc(), Quaternion.identity);
+                currentSpawnedEnemies.Add(newspawn);
 
-            Enemy foe = newspawn.GetComponent<Enemy>();
-            foe.SetSpawner(this);
-            
+                Enemy foe = newspawn.GetComponent<Enemy>();
+                foe.SetSpawner(this);
+            }
         }
     }
 

@@ -18,6 +18,9 @@ public class ShootManager : MonoBehaviour
     public float spread;
     // Bullets per shot
     public int bulletsPerShot;
+    
+    
+    
 
     [Header("Partical Effect")]
     // // The Rigidbody of the bullet
@@ -150,8 +153,6 @@ public class ShootManager : MonoBehaviour
         // //hasFired = false; // Reset hasFired to false after shooting
 
     }
-
-
 
     public void StopShoot()
     {
