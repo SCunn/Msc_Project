@@ -19,7 +19,7 @@ public class ShootManager : MonoBehaviour
     // Bullets per shot
     public int bulletsPerShot;
     
-    
+    [SerializeField] int enemyDamage;
     
 
     [Header("Partical Effect")]
@@ -28,7 +28,7 @@ public class ShootManager : MonoBehaviour
     // // Bullet lifespan in seconds
     // private float flashLifeSpan = 5f;
 
-    public GameObject muzzleFlash;
+    public GameObject muzzleFlash/*, bulletHole, bloodSplatter, impactDebris */;
 
     public AudioClip audioClip;
 
@@ -59,14 +59,10 @@ public class ShootManager : MonoBehaviour
     // Float to determine the fire rate of the bullet
     private float timeToFire = 0f;
 
-    //// Referene to the Gesture Detector Component
-    //private GestureDetector2 gestureDetector;
-
-    // // Start is called before the first frame update
-    // private void Start()
+    // // update is called once per frame
+    // void Update()
     // {
-    //     rb = GetComponent<Rigidbody>();
-    //     Destroy(gameObject, flashLifeSpan);
+    //     Shoot();
     // }
 
     public void Grabbed() 
@@ -93,7 +89,7 @@ public class ShootManager : MonoBehaviour
         switch (shootMode) 
         {
             case ShootMode.Automatic:
-                    Debug.Log("Shooting in Automatic Mode");
+                    // Debug.Log("Shooting in Automatic Mode");
                 if (Time.time >= timeToFire)
                 {
                     timeToFire = Time.time + 1f / bulletPrefab.GetComponent<Bullet>().fireRate;
@@ -107,7 +103,7 @@ public class ShootManager : MonoBehaviour
                 if (!hasFired) 
                 {
                     hasFired = true;
-                    Debug.Log("Shooting in Single Mode");
+                    // Debug.Log("Shooting in Single Mode");
                     Shoot();
                 }
                 break;
@@ -115,7 +111,7 @@ public class ShootManager : MonoBehaviour
             case ShootMode.Shotgun:
                 if (isGrabbed)
                 {
-                    Debug.Log("Shooting in Shotgun Mode");
+                    // Debug.Log("Shooting in Shotgun Mode");
                     for (int i = 0; i < bulletsPerShot; i++) 
                     {
                         Shoot();
@@ -129,9 +125,39 @@ public class ShootManager : MonoBehaviour
 
     private void Shoot() 
     {
+        // Add Raycast to the bullet
+        RaycastHit hit;
+
         // Spread
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
+
+        
+
+        // raycast update
+        // Raycast to check if the bullet hit anything
+        if (Physics.Raycast(hand.position, hand.forward, out hit, 100f))
+        {
+            
+                
+
+            // if (hit.collider.tag == "Shootable") Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
+            // if (hit.collider.tag == "Floor") Instantiate(impactDebris, hit.point, Quaternion.LookRotation(hit.normal));
+        
+            if (hit.collider.tag == "Enemy") 
+            {
+                hit.collider.GetComponent<Enemy>().DamageEnemy(enemyDamage);
+                // Instantiate(bloodSplatter, hit.point, Quaternion.LookRotation(hit.normal));
+            }
+            
+        }
+        // else
+        // {
+        //     // if no hit, shoot in the direction of the hand
+        //     hand.LookAt(hand.position + (direction * 50f));
+        // }
+
+
 
         // Calcuelate Direction with Spread
         Vector3 direction = hand.forward + new Vector3(x, y, 0);

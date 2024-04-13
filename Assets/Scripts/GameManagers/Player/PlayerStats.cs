@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
-using UnityEditor.SearchService;
+// using Microsoft.Unity.VisualStudio.Editor;
+// using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
         // healthbar.fillAmount = HP / maxHP;
     }
 
-    public float GetHP()
+    public int GetHP()
     {
         return HP;
     }
@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour
 
             // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        Debug.Log("Player HP: " + HP);
+        // Debug.Log("Player HP: " + HP);
     }
 
     // public void Heal(float healAmount)

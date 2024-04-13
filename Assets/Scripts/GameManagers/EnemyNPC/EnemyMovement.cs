@@ -24,7 +24,7 @@ public class EnemyMovement : MonoBehaviour
 
     BoxCollider boxCollider; // reference to the box collider placed on enemy attack area
 
-    private bool isDead = false; // boolean to check if the enemy is dead   
+    // private bool isDead = false; // boolean to check if the enemy is dead   
 
     // Patrolling
     Vector3 destPoint; // destination point for the enemy to move to

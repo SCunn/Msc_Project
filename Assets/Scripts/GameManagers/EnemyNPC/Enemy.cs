@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Callbacks;
+// using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -15,8 +15,8 @@ public class Enemy : MonoBehaviour
     // Enemy Stats and Info
     [SerializeField] int damage = 10;
     [SerializeField] int enemyHP = 100;
-    [SerializeField] float knockback = 10;
-    [SerializeField] float knockbackMutiplier = 5;
+    // [SerializeField] float knockback = 10;
+    // [SerializeField] float knockbackMutiplier = 5;
 
 
     EnemySpawner Spawner;
@@ -72,7 +72,8 @@ public class Enemy : MonoBehaviour
             KillEnemy();
             // return;
         }
-        Debug.Log("Enemy HP: " + enemyHP);
+        // Debug.Log("Enemy HP: " + enemyHP);
+        
         // rb.velocity = Vector3.up * 5;
         // rb.AddForce(player.forward * 5);
 
