@@ -36,6 +36,10 @@ public class ShootManager : MonoBehaviour
     
     private bool isGrabbed;
 
+    private bool notGun;
+
+    private bool isTouchRController;
+
     //[Header("Aiming Helper")]
     //public Transform gunTip;
     //public Transform circle;
@@ -59,11 +63,22 @@ public class ShootManager : MonoBehaviour
     // Float to determine the fire rate of the bullet
     private float timeToFire = 0f;
 
-    // // update is called once per frame
-    // void Update()
-    // {
-    //     Shoot();
-    // }
+    // Set bool to set if object is  not a gun
+    public void NotGun() 
+    {
+        notGun = true;
+    }
+    // Set bool to set if object is a gun
+    public void IsGun() 
+    {
+        notGun = false;
+    }
+    // function to reload the shotgun based on grab and not gun states
+    public void ReloadShotGun() 
+    {
+        if (isGrabbed) hasFired = false;
+        Debug.Log("Shotgun Reloaded");
+    }
 
     public void Grabbed() 
     {
@@ -73,6 +88,18 @@ public class ShootManager : MonoBehaviour
     public void Released() 
     {
         isGrabbed = false;
+    }
+
+    public void TouchR_Grabbed() 
+    {
+        // dertect if the right oculus controller is active
+        isTouchRController = true;
+        
+    }
+
+    public void TouchR_Released() 
+    {
+        isTouchRController = false;
     }
 
 
@@ -111,12 +138,18 @@ public class ShootManager : MonoBehaviour
             case ShootMode.Shotgun:
                 if (isGrabbed)
                 {
-                    // Debug.Log("Shooting in Shotgun Mode");
-                    for (int i = 0; i < bulletsPerShot; i++) 
+                    if (!hasFired)
                     {
-                        Shoot();
+                        hasFired = true;
+                    // Debug.Log("Shooting in Shotgun Mode");
+                        for (int i = 0; i < bulletsPerShot; i++) 
+                        {
+                            Shoot();
+                        }
                     }
+                    Debug.Log("Reload");
                 }
+
                 break;
         }
     }
