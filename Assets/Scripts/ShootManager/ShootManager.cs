@@ -30,7 +30,7 @@ public class ShootManager : MonoBehaviour
 
     public GameObject muzzleFlash/*, bulletHole, bloodSplatter, impactDebris */;
 
-    public AudioClip audioClip;
+    // public AudioClip audioClip;
 
 
     
@@ -200,7 +200,8 @@ public class ShootManager : MonoBehaviour
         bullet.transform.localRotation = hand.rotation;
         bullet.GetComponent<Rigidbody>().AddForce(direction * speed * 2f); //Set the speed of the projectile by applying force to the rigidbody
         Instantiate(muzzleFlash, hand.position, hand.rotation); // Instantiate the muzzle flash particle effect
-        AudioSource.PlayClipAtPoint(audioClip, transform.position);
+        // AudioSource.PlayClipAtPoint(audioClip, transform.position);
+        FindObjectOfType<AudioManager>().Play("ShotGunFire");
         //hasFired = false; // Reset hasFired to false after shooting
   
 
