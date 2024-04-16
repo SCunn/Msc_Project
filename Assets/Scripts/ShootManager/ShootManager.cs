@@ -76,8 +76,12 @@ public class ShootManager : MonoBehaviour
     // function to reload the shotgun based on grab and not gun states
     public void ReloadShotGun() 
     {
-        if (isGrabbed) hasFired = false;
-        Debug.Log("Shotgun Reloaded");
+        if (isGrabbed)
+        { 
+            hasFired = false;
+            FindObjectOfType<AudioManager>().Play("ShotGunReload");
+        }
+        // Debug.Log("Shotgun Reloaded");
     }
 
     public void Grabbed() 
@@ -147,7 +151,12 @@ public class ShootManager : MonoBehaviour
                             Shoot();
                         }
                     }
-                    Debug.Log("Reload");
+                    else
+                    {
+                        FindObjectOfType<AudioManager>().Play("ShotGunTrigger");
+                    }
+                
+                    // Debug.Log("Reload");
                 }
 
                 break;
@@ -217,7 +226,7 @@ public class ShootManager : MonoBehaviour
     public void StopShoot()
     {
         hasFired = false;
-        Debug.Log("Stop Shooting");
+        // Debug.Log("Stop Shooting");
     }
 
 }
