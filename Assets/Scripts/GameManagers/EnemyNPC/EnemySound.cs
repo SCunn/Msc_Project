@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class EnemySound : MonoBehaviour
 {
+    public AudioClip[] attackSounds;
+
+    // Wolf Death Sound
+    public AudioClip wolfDeathSound;
     
- [Header("Footsteps")]
+    [Header("Footsteps")]
     public List<AudioClip> earthFS;
     public List<AudioClip> woodFS;
 
@@ -17,14 +21,29 @@ public class EnemySound : MonoBehaviour
         Empty
     }
 
-    public AudioSource footstepSource;
+    public AudioSource footstepSource, attackSource, deathSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        footstepSource = GetComponent<AudioSource>();
-        //footstepSource = GetComponent<AudioSource>()[0];  // eg. This is the first audio source in the array
-        //attackSource = GetComponent<AudioSource>()[1];    // eg. This is the second audio source in the array
+        // footstepSource = GetComponent<AudioSource>();
+        footstepSource = GetComponents<AudioSource>()[0];  // eg. This is the first audio source in the array
+        attackSource = GetComponents<AudioSource>()[1];    // eg. This is the second audio source in the array
+        deathSource = GetComponents<AudioSource>()[2];
+        
+    }
+
+    void AttackSound()
+    {
+        AudioClip clip = attackSounds[(int)Random.Range(0, attackSounds.Length)];
+        attackSource.clip = clip;
+        attackSource.Play();
+    }
+
+    void DeathSound()
+    {
+        deathSource.clip = wolfDeathSound;
+        deathSource.Play();
     }
 
     private GroundType SurfaceSelect()

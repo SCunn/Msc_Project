@@ -36,6 +36,8 @@ public class ShootManager : MonoBehaviour
     
     private bool isGrabbed;
 
+    private bool holdBarrel;
+
     private bool notGun;
 
     private bool isTouchRController;
@@ -73,26 +75,40 @@ public class ShootManager : MonoBehaviour
     {
         notGun = false;
     }
+
+    // Set bool to true if player is holding the hand guard
+    public void HoldingBarrel() 
+    {
+        holdBarrel = true;
+    }
+    // Set bool to false if player is not holding the hand guard
+    public void ReleaseBarrel() 
+    {
+        holdBarrel = false;
+    }
+
     // function to reload the shotgun based on grab and not gun states
     public void ReloadShotGun() 
     {
-        if (isGrabbed)
+        if (holdBarrel)
         { 
             hasFired = false;
             FindObjectOfType<AudioManager>().Play("ShotGunReload");
         }
         // Debug.Log("Shotgun Reloaded");
     }
-
+    // check for if player holding gun's stock area
     public void Grabbed() 
     {
         isGrabbed = true;
     }    
-
+    // check for if player has released the gun's stock area
     public void Released() 
     {
         isGrabbed = false;
     }
+
+
 
     public void TouchR_Grabbed() 
     {

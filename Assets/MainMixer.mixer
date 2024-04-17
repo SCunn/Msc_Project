@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-8656529307328424845
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WolfDeath
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 80d528590d6e631408ac6be583c804cf
+  m_Children: []
+  m_Volume: 9a9b21d8351be334f84015eb0a7c9c24
+  m_Pitch: 9fa698c793993d240a02b065b0f062b8
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -3173662874699574468}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &-3173662874699574468
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 511dc492853a26243a81f8d2bb22defd
+  m_EffectName: Attenuation
+  m_MixLevel: f7f21dff27c16ef4cb287befa30ace26
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -22,6 +55,8 @@ AudioMixerController:
     - 7ea133b97a0813b4cbb7c86f180e3ebd
     - 6386f08e2ce134944929de771db83c5f
     - e49380363e43eb941a460ea73e7beed5
+    - 37eb30a595bca3a4285a0ea4a1d78ad6
+    - 80d528590d6e631408ac6be583c804cf
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -70,9 +105,29 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: bab14e99b133fa14b9dc07daa6500b81
   m_FloatValues:
+    9709355331adbf94f946ca8a101b4405: 0.13552584
     0d99584c576c7d2469021f404fa77f0e: 0.10109717
     028c607cea6bdcc4da7c2bb6f3c20c28: 0.04171297
   m_TransitionOverrides: {}
+--- !u!243 &1218936063513230416
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WolfAttack
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 37eb30a595bca3a4285a0ea4a1d78ad6
+  m_Children: []
+  m_Volume: 0d795ae3fb9f1f5459a509d673f781fc
+  m_Pitch: 3bd98716ddd325c4fa9643437a8c7e0a
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 6904804421490063224}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &2010859953439889175
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -98,6 +153,8 @@ AudioMixerGroupController:
   m_GroupID: 7ea133b97a0813b4cbb7c86f180e3ebd
   m_Children:
   - {fileID: 4383734012265194749}
+  - {fileID: 1218936063513230416}
+  - {fileID: -8656529307328424845}
   m_Volume: 37a8fd70922a11f4883d69df86404bee
   m_Pitch: 99efa467061b5b84abac0590b66a0153
   m_Send: 00000000000000000000000000000000
@@ -127,7 +184,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Footsteps
+  m_Name: Wolfsteps
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: e49380363e43eb941a460ea73e7beed5
   m_Children: []
@@ -159,6 +216,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &6904804421490063224
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 0c6d1f988363948469bcc4c9674b2fae
+  m_EffectName: Attenuation
+  m_MixLevel: 6174f0f0d0f8bf84481ed19c3f581ebf
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &8724881863571449427
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
