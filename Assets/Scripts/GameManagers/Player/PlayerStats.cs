@@ -40,7 +40,7 @@ public class PlayerStats : MonoBehaviour
             // cameraRig.enabled = false; // Disable camera rig on death (optional)
             // Debug.Log("Player is dead");
 
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         // Debug.Log("Player HP: " + HP);
     }

@@ -25,9 +25,14 @@ public class EnemySpawner : MonoBehaviour
     public float spawnTime = 1;
     private float timer;
 
+    public AudioClip SpawnSound;
+
+    public AudioSource spawnSoundSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        spawnSoundSource = GetComponent<AudioSource>();
         SpawnWave();
     }
 
@@ -41,6 +46,12 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    void SpawnSFX()
+    {
+        spawnSoundSource.clip = SpawnSound;
+        spawnSoundSource.Play();
+    }
+
     void SpawnWave()
     {
         if (currentWave < waves.Length) // Add a check to ensure currentWave is within the bounds of the waves array
@@ -52,6 +63,8 @@ public class EnemySpawner : MonoBehaviour
 
                 Enemy foe = newspawn.GetComponent<Enemy>();
                 foe.SetSpawner(this);
+                SpawnSFX();
+
             }
         }
     }
