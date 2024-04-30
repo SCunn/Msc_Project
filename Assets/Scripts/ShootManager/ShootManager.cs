@@ -40,7 +40,7 @@ public class ShootManager : MonoBehaviour
 
     private bool notGun;
 
-    private bool isTouchRController;
+    // private bool isTouchRController;
 
     //[Header("Aiming Helper")]
     //public Transform gunTip;
@@ -110,17 +110,17 @@ public class ShootManager : MonoBehaviour
 
 
 
-    public void TouchR_Grabbed() 
-    {
-        // dertect if the right oculus controller is active
-        isTouchRController = true;
+    // public void TouchR_Grabbed() 
+    // {
+    //     // dertect if the right oculus controller is active
+    //     isTouchRController = true;
         
-    }
+    // }
 
-    public void TouchR_Released() 
-    {
-        isTouchRController = false;
-    }
+    // public void TouchR_Released() 
+    // {
+    //     isTouchRController = false;
+    // }
 
 
     // Method to add in the Event of the gesture you want to make shoot

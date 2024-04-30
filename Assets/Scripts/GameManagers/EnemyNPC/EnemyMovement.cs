@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
     // public float enemyDistance = 0.7f; // Distance enemy will have to be from player to play animation
     bool hurdling; // boolean to check if the enemy is hurdling
     // OffMeshLinkData 
-    private OffMeshLinkData _currLinkData;
+    // private OffMeshLinkData _currLinkData;
 
     [SerializeField] LayerMask groundLayer, playerLayer; // LayerMask to determine what is ground and what is player
 
@@ -34,10 +34,10 @@ public class EnemyMovement : MonoBehaviour
     bool walkpointSet;
     [SerializeField] float range;
 
-    // Attacking
-    float timeBetweenAttacks; // time between attacks
-    float attackTimer; // timer for the attack
-    bool canAttack; // boolean to check if the enemy can attack
+    // // Attacking
+    // float timeBetweenAttacks; // time between attacks
+    // float attackTimer; // timer for the attack
+    // bool canAttack; // boolean to check if the enemy can attack
 
 
 
@@ -99,29 +99,6 @@ public class EnemyMovement : MonoBehaviour
                         hurdling = true;
 
                     }
-                    
-                    // // lerp from link start to link end in time to animation
-                    // var tlerp = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-                    // // Straight line from start link to end link
-                    // var newPos = Vector3.Lerp(_currLinkData.startPos, _currLinkData.endPos, tlerp);
-                    // // add jump
-                    // newPos.y += 2f * Mathf.Sin(tlerp * Mathf.PI);
-                    // // Update transform position
-                    // transform.position = newPos; 
-
-                    // // When the animation is done, Don't use looping animations
-                    // if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VaultRoot"))
-                    // {
-                    //     // check if enemy is still on the link
-                    //     transform.position = _currLinkData.endPos;
-                    //     // logic reset
-                    //     hurdling = false;
-                    //     // Tell Unity that the agent has traversed the hurdle
-                    //     agent.CompleteOffMeshLink();
-                    //     // Resume agent movement	
-                    //     // agent.Resume();
-
-                    // }
 
                 }
             }
@@ -129,6 +106,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 hurdling = false;
             } 
+
 
         
 
